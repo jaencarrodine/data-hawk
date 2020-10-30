@@ -31,7 +31,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Deployment
 
-The site has been deployed on AWS Amplify. Instructions to re-deploy on a new instance are as follows:
+The site has been deployed on AWS Amplify. Instructions to re-deploy can be found [here](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/module-one/?e=gs2020&p=build-a-react-app-intro)
 
 
 
