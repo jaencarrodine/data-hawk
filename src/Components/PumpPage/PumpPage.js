@@ -10,8 +10,8 @@ class PumpPage extends React.Component{
 
     render(){
         return(
-            <div className = "pump-page-main">
-                <div className = "pump-page-header">
+            <div className = "page-main">
+                <div className = "page-header">
                     {this.props.pageInfo.name}
                 </div>
             </div>

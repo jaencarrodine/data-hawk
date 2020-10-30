@@ -1,6 +1,6 @@
 import React from 'react';
 import './OverviewPage.css';
-
+import LineChart from "../LineChart/LineChart"
 
 class OverviewPage extends React.Component{
     constructor(props){
@@ -14,6 +14,11 @@ class OverviewPage extends React.Component{
                 <div className = "page-header">
                     Overview
                 </div>
+                <div className ="page-main-section">
+                    <div className = "page-column">
+                        <LineChart />
+                    </div>
+                </div> 
             </div>
         )
     }

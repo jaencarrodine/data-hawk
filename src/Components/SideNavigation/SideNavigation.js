@@ -14,9 +14,8 @@ class SideNavigation extends React.Component{
         this.renderPages = this.renderPages.bind(this)
         this.handleOpenPageClick = this.handleOpenPageClick.bind(this)
     }
-
+    //handle open click is used to open pages. It calls setActivePage in the App component
     handleOpenPageClick(pageName){
-        console.log("handle open page")
         this.props.setActivePage(pageName)
     }
     //get Icon applies the correct Icon to each page depending on the pages icon property
