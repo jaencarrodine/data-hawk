@@ -18,6 +18,7 @@ class SideNavigation extends React.Component{
     handleOpenPageClick(pageName){
         this.props.setActivePage(pageName)
     }
+    
     //get Icon applies the correct Icon to each page depending on the pages icon property
     //accepts "iconType" a string
     getIcon(iconType){
