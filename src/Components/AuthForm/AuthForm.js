@@ -1,32 +1,38 @@
 import React, {useState, useEffect} from 'react'
-
-
+import './AuthForm.css'
+import bgSVG from '../../Images/light-gray-array-lines.svg'
 
 function AuthForm(props){
     function returnFormInputs(){
         if(props.formState.formType === "signIn"){
             return(
+
                 <div className = "inputs">
-                    <input name = "username" placeholder = "Enter your e-mail or username" onChange = {props.onChange}></input>
-                    <input name = "password" placeholder = "Enter your password" onChange = {props.onChange}></input>
-                    <div className = "switch-to-sign-up" onClick ={props.switchToSignUp}>Sign up</div>
+                    <div className = "input-name">E-mail</div>
+                    <div className = "input"><input name = "email" placeholder = "Enter your e-mail" onChange = {props.onChange}></input></div>
+                    <div className = "input-name">Password</div>
+                    <div className = "input"><input name = "password" placeholder = "Enter your password" type = "password" onChange = {props.onChange}></input></div>
+                    <div className = "switch-to-sign-up" onClick ={props.switchToSignUp}>Don't have an account? <span className = "su">Sign up</span></div>
                     <div className = "login-button" onClick = {props.signIn}>Login now</div>
                 </div>     
             )
         }else if(props.formState.formType === "signUp"){
             return(
                 <div className = "inputs">
-                    <input name = "username" placeholder = "Username" onChange = {props.onChange}></input>
-                    <input name = "email" placeholder = "E-mail" onChange = {props.onChange}></input>
-                    <input name = "password" type = "password" placeholder ="Password" onChange = {props.onChange}/>
+                    <div className = "input-name">E-mail</div>
+                    <div className = "input"><input name = "email" placeholder = "E-mail" onChange = {props.onChange}></input></div>
+                    <div className = "input-name">Password</div>
+                    <div className = "input"><input name = "password" type = "password" placeholder ="Password" onChange = {props.onChange}/></div>
+                    <div className = 'su' onClick ={props.switchToSignIn}>Sign in</div>
                     <div className = "login-button" onClick = {props.signUp}>Sign up</div>
                 </div>     
             )
         }else if(props.formState.formType === "confirmSignUp"){
             return(
                 <div className = "inputs">
-                    <input name = "authcode" placeholder = "Authentication code" onChange = {props.onChange}></input>
-                    <div className= "resend-code" onClick = {props.resendConfirmationCode}>Resend Code</div>
+                    <div className = "input-name" value = {props.formState.authcode}>Authentication code</div>
+                    <div className = "input"><input defaultValue = '' name = "authcode" placeholder = "Authentication code" onChange = {props.onChange}></input></div>
+                    <div className= "su" onClick = {props.resendConfirmationCode}>Resend Code</div>
                     <div className = "login-button" onClick = {props.confirmSignUp}>Confirm</div>
                 </div>     
             )
@@ -34,21 +40,29 @@ function AuthForm(props){
 
     }
     return(
-       
-        <div className = "auth-main">
-             
-            <div className = "auth-header">
-                <div className = "header-top-text">
-                {props.formState.formType === "signIn"?"Welcome Back":"Welcome"}
-                </div>
-                <div className = "header-bottom-text">
-                    {props.formState.formType === "Log into your account"?"Welcome":"Please create an account"}
-                </div>
-                {returnFormInputs()}
-                
+        <div className = "auth-background" >
+            <div className ="bg-svg" style = {{backgroundImage: `url(${bgSVG})`}}/>
+                <div className = "auth-main">
+                    
+                    <div className = "auth-header">
+                        <div className = "header-top-text">
+                        {props.formState.formType === "signIn"&& "Welcome Back"}
+                        {props.formState.formType === 'signUp' && "Welcome"}
+                        {props.formState.formType === 'confirmSignUp' && "We sent you the code"}
+                        </div>
+                        <div className = "header-bottom-text">
+                            {props.formState.formType === "signIn"&& "Log into your account"}
+                            {props.formState.formType === 'signUp' && "Please create an account"}
+                            {props.formState.formType === 'confirmSignUp' && "Please enter it below"}
+                            
+                        </div>
+                    
+                    </div>
+                    {returnFormInputs()}
+                    
             </div>
-            
         </div>
+        
     )
 }
 

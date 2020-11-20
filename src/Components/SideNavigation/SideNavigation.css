@@ -17,7 +17,7 @@
 
 .page-list{
     margin-top: 20px;
-    height:70%;
+    height:68%;
     width:100%;
 }
 
@@ -59,4 +59,17 @@
     text-align: center;
     display: flex;
     align-items: center;
+}
+
+.bottom-buttons{
+    display: flex;
+    align-items: center;
+    margin-top:5px;
+    font-family: "Inter", sans-serif;
+    color: rgba(0, 0, 0, 0.54);
+    margin-left:10px
+}
+
+.bottom-buttons:hover{
+    cursor: pointer;
 }

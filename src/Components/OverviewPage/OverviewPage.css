@@ -1,0 +1,12 @@
+.no-data-access{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top:15%;
+    text-align: center;
+    margin-left:25%;
+    font-size:20px;
+    font-family: "Inter", sans-serif;
+    color: rgba(0, 0, 0, 0.54);
+}

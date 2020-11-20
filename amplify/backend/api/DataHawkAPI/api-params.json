@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/DataHawkAPI",
+            "lambdaFunction": "datahawk5a3c62de",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/DataHawkAPI"
+        }
+    ],
+    "resourceName": "DataHawkAPI",
+    "apiName": "DataHawkAPI",
+    "functionArns": [
+        {
+            "lambdaFunction": "datahawk5a3c62de"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-datahawk-dev-124601-authRole",
+        "unAuthRoleName": "amplify-datahawk-dev-124601-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "datahawk5a3c62de",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
