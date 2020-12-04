@@ -9,9 +9,9 @@ function AuthForm(props){
 
                 <div className = "inputs">
                     <div className = "input-name" >E-mail</div>
-                    <div className = "input"><input name = "email" placeholder = "Enter your e-mail" autofill = "email" onChange = {props.onChange}></input></div>
+                    <div className = "input"><input name = "email" placeholder = "Enter your e-mail" autocomplete = "email" onChange = {props.onChange}></input></div>
                     <div className = "input-name">Password</div>
-                    <div className = "input"><input name = "password" placeholder = "Enter your password" type = "password" autofill = "current-password" onChange = {props.onChange}></input></div>
+                    <div className = "input"><input name = "password" placeholder = "Enter your password" type = "password" autocomplete = "current-password" onChange = {props.onChange}></input></div>
                     <div className = "switch-to-sign-up" onClick ={props.switchToSignUp}>Don't have an account? <span className = "su">Sign up</span></div>
                     <div className = "login-button" onClick = {props.signIn}>Login now</div>
                 </div>     
@@ -20,9 +20,9 @@ function AuthForm(props){
             return(
                 <div className = "inputs">
                     <div className = "input-name">E-mail</div>
-                    <div className = "input"><input name = "email" placeholder = "E-mail" onChange = {props.onChange}></input></div>
+                    <div className = "input"><input name = "email" placeholder = "E-mail" autocomplete = "off" onChange = {props.onChange}></input></div>
                     <div className = "input-name">Password</div>
-                    <div className = "input"><input name = "password" type = "password" placeholder ="Password" onChange = {props.onChange}/></div>
+                    <div className = "input"><input name = "password" type = "password" placeholder ="Password" autocomplete = "new-password" onChange = {props.onChange}/></div>
                     <div className = 'su' onClick ={props.switchToSignIn}>Sign in</div>
                     <div className = "login-button" onClick = {props.signUp}>Sign up</div>
                 </div>     
