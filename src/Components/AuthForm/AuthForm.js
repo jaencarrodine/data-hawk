@@ -8,10 +8,10 @@ function AuthForm(props){
             return(
 
                 <div className = "inputs">
-                    <div className = "input-name">E-mail</div>
-                    <div className = "input"><input name = "email" placeholder = "Enter your e-mail" onChange = {props.onChange}></input></div>
+                    <div className = "input-name" >E-mail</div>
+                    <div className = "input"><input name = "email" placeholder = "Enter your e-mail" autofill = "email" onChange = {props.onChange}></input></div>
                     <div className = "input-name">Password</div>
-                    <div className = "input"><input name = "password" placeholder = "Enter your password" type = "password" onChange = {props.onChange}></input></div>
+                    <div className = "input"><input name = "password" placeholder = "Enter your password" type = "password" autofill = "current-password" onChange = {props.onChange}></input></div>
                     <div className = "switch-to-sign-up" onClick ={props.switchToSignUp}>Don't have an account? <span className = "su">Sign up</span></div>
                     <div className = "login-button" onClick = {props.signIn}>Login now</div>
                 </div>     

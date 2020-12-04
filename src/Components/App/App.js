@@ -37,7 +37,7 @@ const initialFormState = {
   authcode:"",
 }
 
-const API = "http://localhost:4500/"
+const API = /*"http://localhost:4500/"*/ "https://datahawk-api.herokuapp.com/"
 
 function App(){
   //auth functions
