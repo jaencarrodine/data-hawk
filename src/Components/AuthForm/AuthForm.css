@@ -19,6 +19,13 @@
     z-index: 1;
 }
 
+.ht-logo{
+    position:absolute;
+    top: 30px;
+    width: 20%;
+    height:auto;
+}
+
 .auth-main{
     top:25%;
     position: absolute;
@@ -69,6 +76,11 @@
     letter-spacing: 0px;
     line-height: 1.2;
     text-align: center;
+}
+
+.error-message{
+    color:red;
+    font-size:12px;
 }
 
 .inputs{

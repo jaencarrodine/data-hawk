@@ -44,6 +44,8 @@ function App(){
   const [formState, updateFormState] = useState(initialFormState)
   const [user, updateUser] = useState(null)
   const [userPermissions, updateUserPermissions] = useState({})
+  const [errorMessage, setErrorMessage] = useState('')
+
   //onchange function updates form state to match user inputs
   useEffect(()=>{
     console.log("use effect")
@@ -52,6 +54,7 @@ function App(){
     if(formState.formType === "signedIn"){
       loadData()
     }
+    setErrorMessage('')
   },[formState])
 
   
@@ -116,6 +119,7 @@ function App(){
         updateFormState(()=> ({...formState, formType:"confirmSignUp"}))
       }
       console.log('error signing up '+e)
+      setErrorMessage(e.message)
       console.log(e)
     }
    
@@ -131,6 +135,7 @@ function App(){
       
     }catch(e){
       console.log("error confirming signup", e)
+      setErrorMessage(e.message)
     }
     
   }
@@ -143,6 +148,7 @@ function App(){
       console.log('code resent successfully');
     }catch (err) {
       console.log('error resending code: ', err);
+      setErrorMessage(err.message)
     }
 
   }
@@ -160,6 +166,7 @@ function App(){
         updateFormState(()=> ({...formState, formType:"confirmSignUp"}))
       }
       console.log('error signing in', error);
+      setErrorMessage(error.message)
     }
 
   }
@@ -199,6 +206,7 @@ function App(){
       ])
     }catch(e){
       console.log('error signing out: ', e)
+      setErrorMessage(e.message)
     }
     console.log('')
   }
@@ -366,6 +374,7 @@ function App(){
       confirmSignUp ={confirmSignUp}
       resendConfirmationCode ={resendConfirmationCode}
       formState ={formState}
+      errorMessage = {errorMessage}
     />
     
     

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './AuthForm.css'
 import bgSVG from '../../Images/light-gray-array-lines.svg'
-
+import htLogo from '../../Images/hayward-tyler-alt-logo.svg'
 function AuthForm(props){
     function returnFormInputs(){
         if(props.formState.formType === "signIn"){
@@ -42,6 +42,8 @@ function AuthForm(props){
     return(
         <div className = "auth-background" >
             <div className ="bg-svg" style = {{backgroundImage: `url(${bgSVG})`}}/>
+
+                <img className = "ht-logo" src = {htLogo}/>
                 <div className = "auth-main">
                     
                     <div className = "auth-header">
@@ -58,6 +60,7 @@ function AuthForm(props){
                         </div>
                     
                     </div>
+    <div className = "error-message">{props.errorMessage !== ''? "Error: " +props.errorMessage:null}</div>
                     {returnFormInputs()}
                     
             </div>
