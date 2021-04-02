@@ -1,7 +1,7 @@
 import React from 'react';
 import './PumpPage.css';
 import LineChart from "../LineChart/LineChart"
-
+//creates a page with a line chart for the specified pump data
 function PumpPage(props){
     
 

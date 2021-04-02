@@ -9,6 +9,8 @@ function OverviewPage(props){
         getAvgData()
     },[props.pages])
     */
+
+    //parses data in all charts and converts it to an average to be displayed in overview chart
     function getAvgData(){
         let pages = props.pages
         let dataCount = 0
@@ -47,7 +49,7 @@ function OverviewPage(props){
         }
         
     }
-
+    //creates a chart for each pump
     function renderPumpCharts(){
         let pumpPages = props.pages.filter((page)=>{
             if(page.pageType === "Pump"){

@@ -7,7 +7,8 @@ import PumpPage from '../PumpPage/PumpPage'
 import AuthForm from '../AuthForm/AuthForm'
 import {Auth } from 'aws-amplify'
 import AdminPage from '../AdminPage/AdminPage'
-
+import MyAccountPage from '../MyAccountPage/MyAccountPage'
+// initialPageState creates default pages
 const initialPageState = [
   {
     name:"Overview",
@@ -37,28 +38,36 @@ const initialFormState = {
   authcode:"",
 }
 
-const API = /*"http://localhost:4500/"*/ "https://datahawk-api.herokuapp.com/"
+
+//use local host for api in development and heroku api in production
+const API = "http://localhost:4500/" //"https://datahawk-api.herokuapp.com/"
 
 function App(){
-  //auth functions
+
+  //fromState holds data typed into the auth form
   const [formState, updateFormState] = useState(initialFormState)
+  //user holds user data
   const [user, updateUser] = useState(null)
+  //user permissions holds permissions retrieved from database
   const [userPermissions, updateUserPermissions] = useState({})
+  //error message holds message that is displayed when auth functions fail
   const [errorMessage, setErrorMessage] = useState('')
 
-  //onchange function updates form state to match user inputs
+  //this effect checks if a user is logged  and decides to load data in every time the form state changes
   useEffect(()=>{
     console.log("use effect")
-   
-    checkUser()
-    if(formState.formType === "signedIn"){
-      loadData()
+    if(formState.formType !== 'forgotPass'){
+      checkUser()
+      if(formState.formType === "signedIn"){
+        loadData()
+      }
     }
+    
     setErrorMessage('')
   },[formState])
 
-  
-
+  //auth related functions
+  //check user checks if a user is currently signed in and updates their permissions
   async function checkUser(){
     const user = await  Auth.currentAuthenticatedUser()
     await updateUser(user)
@@ -68,7 +77,7 @@ function App(){
       updateFormState(()=>({...formState,formType:"signedIn"}))
     }
   }
-
+  //check user permissions calls the check-permissions path on the API to update user permissions state
   async function checkUserPermissions(user){
     console.log('checking user permissions')
     let sub = user.attributes.sub
@@ -95,12 +104,13 @@ function App(){
     }
     updateUserPermissions(permissions)
   }
-
+//onchange function updates form state to match user inputs
   function onChange(e){
     e.persist()
     updateFormState(()=> ({...formState, [e.target.name]: e.target.value}))
   }
 
+  //sign up function creates a new user - check aws amplify auth docs for more info
   async function signUp(){
     const {email, password} = formState
     const username = email
@@ -125,7 +135,7 @@ function App(){
    
     
   }
-
+  //confirm signup verifies the new user
   async function confirmSignUp(){
     const {email, authcode} = formState
     const username = email
@@ -152,7 +162,7 @@ function App(){
     }
 
   }
-
+  
   async function signIn(){
     const {email, password} = formState
     const username = email
@@ -211,6 +221,23 @@ function App(){
     console.log('')
   }
 
+  async function resetPassword(userName){
+    console.log('resetting password')
+    await Auth.forgotPassword(userName)
+    updateFormState(()=>({...formState,formType:"forgotPass"}))
+    
+  }
+
+  async function submitNewPassword(){
+    try{
+      await Auth.forgotPasswordSubmit(userPermissions.email, formState.authcode, formState.password)
+    }catch(error){
+      setErrorMessage(error.message)
+    }
+  }
+
+
+  //addUserToDb adds a new default user to the mongodb database
   async function addUserToDb(user){
     let sub = user.attributes.sub
     let email = user.attributes.email
@@ -234,11 +261,11 @@ function App(){
       return JSON.parse(jsonStr)
     })
   }
-
+  //changes auth form type to signUp
   function switchToSignUp(){
     updateFormState(()=> ({...formState, formType:"signUp"}))
   }
-
+  //changes auth form type to sign in
   function switchToSignIn(){
     updateFormState(()=> ({...formState, formType:"signIn"}))
   }
@@ -251,10 +278,13 @@ function App(){
 
 
 
-
+  //pageState holds all data displayed on pahes
   const [pageState, updatePageState] = useState(initialPageState)
+  //data sent updates whenever new data is loaded. it is used in some other components useEffect to tell the component to reload when data is updated
   const [dataSent, updateDataSent] = useState(0)
+  //data access used to determine if a user as access to any data
   const [dataAccess, updateDataAccess] = useState('')
+
   //setActive page is called in the side navigation page to change set which page is active and deactivate all other pages
   function setActivePage(pageName){
     console.log("setting active page: "+ pageName)
@@ -269,12 +299,13 @@ function App(){
     })
     updatePageState(updatedPageList)
   }
-
+  //load data loads the data a user has access to when the page loads
   async function loadData(){
     try{
       console.log("getting data")
       const user = await  Auth.currentAuthenticatedUser()
       const sub = user.attributes.sub
+      
       let datas = await fetch(API+'get-data', {
         method: 'POST',
         headers: 
@@ -350,7 +381,8 @@ function App(){
     let pagesObj ={
       "Overview":<OverviewPage pageInfo = {activePage} pages = {pageState} API = {API} dataAccess = {dataAccess}/>,
       "Pump":<PumpPage pageInfo = {activePage} API = {API}/>,
-      "Admin":<AdminPage API = {API} userPermissions = {userPermissions}/>
+      "Admin":<AdminPage API = {API} userPermissions = {userPermissions}/>,
+      "Account":<MyAccountPage API = {API} userPermissions = {userPermissions} resetPassword = {resetPassword}/>
     }
     return pagesObj[activePage.pageType]
   }
@@ -375,6 +407,7 @@ function App(){
       resendConfirmationCode ={resendConfirmationCode}
       formState ={formState}
       errorMessage = {errorMessage}
+      submitNewPassword = {submitNewPassword}
     />
     
     

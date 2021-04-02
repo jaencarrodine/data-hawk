@@ -64,7 +64,7 @@ function SideNavigation(props){
             <div className = "page-list">
                 {pageState}
             </div>
-            <div className = "bottom-buttons"><Account color = "action"/>My account</div>
+            <div className = "bottom-buttons" onClick = {() =>handleOpenPageClick("My Account")}><Account color = "action"/>My account</div>
             {props.userPermissions.superAdmin || props.userPermissions.companyAdmin?<div className = "bottom-buttons" onClick = {() =>handleOpenPageClick("Admin Panel")}><Admin color = "action"/>Admin Panel</div>:null}
             <div className = "bottom-buttons" onClick = {props.signOut}><LogOut color = "action"/>Sign out</div>
         </div>
