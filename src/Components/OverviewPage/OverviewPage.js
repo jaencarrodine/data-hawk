@@ -17,34 +17,31 @@ function OverviewPage(props){
         if(pages !== undefined){
             dataCount ++
             
-            let addedArr = []
+            let totalsObj = {}
+            let numPages = 0
             pages.forEach((page,index)=>{
                 let newDataPoint
                 if(page.data !== undefined){
                     page.data.forEach((d,i)=>{
-                        console.log("i",i)
-                        let currentPosVal = parseFloat(addedArr[i])
-                        console.log("cv")
-                        console.log(currentPosVal)
-                        if(!isNaN(currentPosVal)){
-                            console.log('if')
-                            newDataPoint = parseFloat(d.y) + currentPosVal
+                        if(totalsObj['data_'+i] === undefined){
+                            totalsObj['data_'+i] = d.y
                         }else{
-                            console.log('else')
-                            newDataPoint = parseFloat(d.y)
+                            let currentDataPoint = totalsObj['data_'+i]
+                            totalsObj['data_'+i] = currentDataPoint + d.y
                         }
-                        
-                        console.log(newDataPoint)
-                        addedArr.splice(i,1,newDataPoint)
-                        console.log(addedArr)
                     })
+                    numPages ++
                 }
             })
             let avgData =[]
-            addedArr.forEach((n,i)=>{
-                avgData.push({x:i+1,y:n})
-            })
-            console.log(avgData)
+            
+            console.log(totalsObj)
+            let j = 0
+            for(const dataPoint in totalsObj){
+                let y = totalsObj[dataPoint] /  numPages
+                avgData.push({x:j, y:y})
+                j++
+            }
             return(avgData)
         }
         

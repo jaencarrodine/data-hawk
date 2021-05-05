@@ -40,7 +40,7 @@ const initialFormState = {
 
 
 //use local host for api in development and heroku api in production
-const API = "http://localhost:4500/" //"https://datahawk-api.herokuapp.com/"
+const API = /*"http://localhost:4500/"*/ "https://datahawk-api.herokuapp.com/"
 
 function App(){
 
